@@ -2,7 +2,7 @@ import router from './router'
 import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { getToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
 import { isHttp } from '@/utils/validate'
 import { isRelogin } from '@/utils/request'
 import useUserStore from '@/store/modules/user'
@@ -11,18 +11,20 @@ import usePermissionStore from '@/store/modules/permission'
 
 NProgress.configure({ showSpinner: false });
 
-const whiteList = ['/login', '/register'];
+const whiteList = ['/login', '/auth-redirect', '/bind', '/register'];
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (getToken()) {
+  const token = getToken();
+  const isSelf = window.top === window.self;
+  if (token && isSelf) {
     to.meta.title && useSettingsStore().setTitle(to.meta.title)
     /* has token*/
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done()
     } else {
-      if (useUserStore().roles.length === 0) {
+      if (useUserStore().name === 0) {
         isRelogin.show = true
         // 判断当前用户是否已拉取完user_info信息
         useUserStore().getInfo().then(() => {
@@ -46,6 +48,18 @@ router.beforeEach((to, from, next) => {
         next()
       }
     }
+  } else if(token && !isSelf) {
+    // token 有效性探测
+    useUserStore().getUserCode().then(res => {
+      if (!!res) {
+        // 不使用 * 获取不到，使用 * 会被非法站点捕获，暂无其他解决方法
+        window.top.postMessage(token, '*');
+      } else {
+        removeToken();
+        next();
+      }
+      NProgress.done()
+    })
   } else {
     // 没有token
     if (whiteList.indexOf(to.path) !== -1) {

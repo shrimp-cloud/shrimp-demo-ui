@@ -17,18 +17,24 @@ const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
   baseURL: import.meta.env.VITE_APP_BASE_API,
   // 超时
-  timeout: 10000
+  timeout: 12000
 })
 
 // request拦截器
 service.interceptors.request.use(config => {
-  // 是否需要设置 token
-  const isToken = (config.headers || {}).isToken === false
+
+  const token = getToken();
+  if (token) {
+    config.headers['token'] = token;
+  }
+  if (appCode) {
+    config.headers['app-code'] = appCode;
+  }
+  config.headers['trace-id'] = guid();
+
   // 是否需要防止数据重复提交
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
-  if (getToken() && !isToken) {
-    config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-  }
+
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
     let url = config.url + '?' + tansParams(config.params);
@@ -74,17 +80,21 @@ service.interceptors.request.use(config => {
 // 响应拦截器
 service.interceptors.response.use(res => {
     // 未设置状态码则默认成功状态
-    const code = res.data.code || 200;
+    const code = res.data.code || -1;
     // 获取错误信息
     const msg = errorCode[code] || res.data.msg || errorCode['default']
     // 二进制数据则直接返回
     if (res.request.responseType ===  'blob' || res.request.responseType ===  'arraybuffer') {
       return res.data
     }
-    if (code === 401) {
+      if (code === 10001 || code === 10002 || code === 10005 || code === 10006 || code === 10007) {
       if (!isRelogin.show) {
         isRelogin.show = true;
-        ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', { confirmButtonText: '重新登录', cancelButtonText: '取消', type: 'warning' }).then(() => {
+        ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
           isRelogin.show = false;
           useUserStore().logOut().then(() => {
             location.href = '/index';
@@ -100,7 +110,7 @@ service.interceptors.response.use(res => {
     } else if (code === 601) {
       ElMessage({ message: msg, type: 'warning' })
       return Promise.reject(new Error(msg))
-    } else if (code !== 200) {
+    } else if (code !== 1) {
       ElNotification.error({ title: msg })
       return Promise.reject('error')
     } else {
@@ -110,7 +120,7 @@ service.interceptors.response.use(res => {
   error => {
     console.log('err' + error)
     let { message } = error;
-    if (message == "Network Error") {
+    if (message === "Network Error") {
       message = "后端接口连接异常";
     } else if (message.includes("timeout")) {
       message = "系统接口请求超时";
@@ -147,6 +157,14 @@ export function download(url, params, filename, config) {
     ElMessage.error('下载文件出现错误，请联系管理员！')
     downloadLoadingInstance.close();
   })
+}
+
+function guid() {
+  return 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/[x]/g, (c) => {
+    const r = (Math.random() * 16) || 0;
+    const integer = Math.trunc(r);
+    return integer.toString(16);
+  });
 }
 
 export default service

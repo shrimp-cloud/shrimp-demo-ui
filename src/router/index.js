@@ -57,6 +57,7 @@ export const constantRoutes = [
     component: () => import('@/views/error/401'),
     hidden: true
   },
+  /*
   {
     path: '',
     component: Layout,
@@ -70,7 +71,6 @@ export const constantRoutes = [
       }
     ]
   },
-  /*
   {
     path: '/user',
     component: Layout,

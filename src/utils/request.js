@@ -6,6 +6,7 @@ import { tansParams, blobValidate } from '@/utils/ruoyi'
 import cache from '@/plugins/cache'
 import { saveAs } from 'file-saver'
 import useUserStore from '@/store/modules/user'
+const appCode = import.meta.env.VITE_APP_APP_CODE;
 
 let downloadLoadingInstance;
 // 是否显示重新登录

@@ -1,6 +1,6 @@
 import auth from '@/plugins/auth'
 import router, { constantRoutes } from '@/router'
-import { userResTree } from '@/api/sso'
+import { userResTree } from '@/api/cas'
 import Layout from '@/layout/index'
 import ParentView from '@/components/ParentView'
 import InnerLink from '@/layout/components/InnerLink'
@@ -35,7 +35,7 @@ const usePermissionStore = defineStore('permission', {
     setSidebarRouters(routes) {
       this.sidebarRouters = routes
     },
-    generateRoutes(roles) {
+    generateRoutes() {
       return new Promise(resolve => {
         // 向后端请求路由数据
         userResTree().then(res => {

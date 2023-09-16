@@ -18,3 +18,7 @@ export function userResTree() {
 export function userAppList() {
     return request({url: '/cas/user/app/list', method: 'get'})
 }
+
+export function register() {
+    return;
+}

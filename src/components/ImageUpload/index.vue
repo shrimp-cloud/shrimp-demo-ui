@@ -2,7 +2,7 @@
   <div class="component-upload-image">
     <el-upload
       multiple
-      :action="#"
+      action="#"
       list-type="picture-card"
       :http-request="handleUpload"
       :on-success="handleUploadSuccess"

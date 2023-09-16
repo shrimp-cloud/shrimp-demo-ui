@@ -23,13 +23,16 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
-
   const token = getToken();
+  const tenantCode = localStorage.getItem('tenant-code');
   if (token) {
     config.headers['token'] = token;
   }
   if (appCode) {
     config.headers['app-code'] = appCode;
+  }
+  if (tenantCode) {
+    config.headers['tenant-code'] = tenantCode;
   }
   config.headers['trace-id'] = guid();
 
@@ -108,9 +111,6 @@ service.interceptors.response.use(res => {
     } else if (code === 500) {
       ElMessage({ message: msg, type: 'error' })
       return Promise.reject(new Error(msg))
-    } else if (code === 601) {
-      ElMessage({ message: msg, type: 'warning' })
-      return Promise.reject(new Error(msg))
     } else if (code !== 1) {
       ElNotification.error({ title: msg })
       return Promise.reject('error')
@@ -119,7 +119,7 @@ service.interceptors.response.use(res => {
     }
   },
   error => {
-    console.log('err' + error)
+    console.log('err:', error)
     let { message } = error;
     if (message === "Network Error") {
       message = "后端接口连接异常";

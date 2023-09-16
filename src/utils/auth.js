@@ -9,5 +9,6 @@ export function setToken(token) {
 }
 
 export function removeToken() {
+  localStorage.removeItem('tenant-code');
   return localStorage.removeItem(TokenKey)
 }

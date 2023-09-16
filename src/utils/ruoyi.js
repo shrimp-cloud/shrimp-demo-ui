@@ -157,7 +157,7 @@ export function mergeRecursive(source, target) {
  * @param {*} parentId 父节点字段 默认 'parentId'
  * @param {*} children 孩子节点字段 默认 'children'
  */
-export function handleTree(data, id, parentId, children) {
+export function handleTree(data, id, parentId, children, disableChrilred) {
   let config = {
     id: id || 'id',
     parentId: parentId || 'parentId',
@@ -188,6 +188,11 @@ export function handleTree(data, id, parentId, children) {
     adaptToChildrenList(t);
   }
 
+  // 递归子节点，禁用指定节点及其子节点
+  if (disableChrilred) {
+    disableChrilrenNodes(tree, false);
+  }
+
   function adaptToChildrenList(o) {
     if (childrenListMap[o[config.id]] !== null) {
       o[config.childrenList] = childrenListMap[o[config.id]];
@@ -196,6 +201,18 @@ export function handleTree(data, id, parentId, children) {
       for (let c of o[config.childrenList]) {
         adaptToChildrenList(c);
       }
+    }
+  }
+
+  function disableChrilrenNodes(tree, disabled) {
+    if (!tree) {
+      return;
+    }
+    for (let t of tree) {
+      // 只能影响自己，和子级，不能影响当前级其他地元素
+      const currentDisabled = disabled || t[config.id] === disableChrilred;
+      t.disabled = currentDisabled;
+      disableChrilrenNodes(t[config.childrenList], currentDisabled)
     }
   }
   return tree;
@@ -230,7 +247,7 @@ export function tansParams(params) {
 
 // 返回项目路径
 export function getNormalPath(p) {
-  if (p.length === 0 || !p || p == 'undefined') {
+  if (p.length === 0 || !p || p === 'undefined') {
     return p
   };
   let res = p.replace('//', '/')

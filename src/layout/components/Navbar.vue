@@ -17,12 +17,12 @@
         <el-dropdown @command="handleCommand" class="right-menu-item hover-effect" trigger="click">
           <div class="avatar-wrapper" style="display: flex">
             <img :src="userStore.avatar" class="user-avatar" />
-			<span style="margin: 6px 0 0 8px; font-size: 28px;">{{ userStore.name }}</span>
+            <span style="margin: 6px 0 0 8px; font-size: 28px;">{{ userStore.name }}</span>
             <el-icon><caret-bottom /></el-icon>
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <router-link to="/user/profile">
+              <router-link to="/personal/profile">
                 <el-dropdown-item>个人中心</el-dropdown-item>
               </router-link>
               <el-dropdown-item command="setLayout" v-if="settingsStore.showSettings">

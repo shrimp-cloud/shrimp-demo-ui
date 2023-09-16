@@ -95,7 +95,7 @@ watch(() => props.modelValue, val => {
     // 然后将数组转为对象数组
     fileList.value = list.map(item => {
       if (typeof item === "string") {
-          item = { name: item, url: item };
+        item = { name: item, url: item };
       }
       return item;
     });

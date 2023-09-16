@@ -3,7 +3,7 @@
     <template v-for="(item, index) in options">
       <template v-if="values.includes(item.value)">
         <span
-          v-if="item.elTagType == 'default' || item.elTagType == ''"
+          v-if="item.elTagType === 'default' || item.elTagType === ''"
           :key="item.value"
           :index="index"
           :class="item.elTagClass"
@@ -16,8 +16,7 @@
           :index="index"
           :type="item.elTagType === 'primary' ? '' : item.elTagType"
           :class="item.elTagClass"
-          >{{ item.label + " " }}</el-tag
-        >
+          >{{ item.label + " " }}</el-tag>
       </template>
     </template>
     <template v-if="unmatch && showValue">

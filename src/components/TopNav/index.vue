@@ -11,8 +11,7 @@
           v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
           :icon-class="item.meta.icon"
         />
-        {{ item.meta.title }}</el-menu-item
-      >
+        {{ item.meta.title }}</el-menu-item>
     </template>
 
     <!-- 顶部菜单超出数量折叠 -->
@@ -24,8 +23,7 @@
           :key="index"
           v-if="index >= visibleNumber"
           ><svg-icon :icon-class="item.meta.icon" />
-          {{ item.meta.title }}</el-menu-item
-        >
+          {{ item.meta.title }}</el-menu-item>
       </template>
     </el-sub-menu>
   </el-menu>

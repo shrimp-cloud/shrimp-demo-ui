@@ -4,7 +4,8 @@ import { userResTree } from '@/api/cas'
 import Layout from '@/layout/index'
 import ParentView from '@/components/ParentView'
 import InnerLink from '@/layout/components/InnerLink'
-import {ElMessage} from "element-plus";
+import {ElMessageBox} from "element-plus";
+const CAS = import.meta.env.VITE_APP_CAS;
 
 // 匹配views里面所有的.vue文件
 const modules = import.meta.glob('./../../views/**/*.vue')
@@ -41,8 +42,9 @@ const usePermissionStore = defineStore('permission', {
         userResTree().then(res => {
           const data = res.data;
           if (!data || data.length === 0) {
+            // cas 是不会走到这里的
             const msg = '您没有此系统的任何权限！';
-            ElMessage({message: msg, type: 'error', duration: 5 * 1000})
+            ElMessageBox.alert(msg, '无权限访问', {  confirmButtonText: '--> 去个人中心', callback: (action) => location.href = CAS})
             reject(msg);
             return;
           }
@@ -177,23 +179,6 @@ function filterChildren(childrenMap, lastRouter = false) {
     children = children.concat(el)
   })
   return children
-}
-
-// 动态路由遍历，验证是否具备权限
-export function filterDynamicRoutes(routes) {
-  const res = []
-  routes.forEach(route => {
-    if (route.permissions) {
-      if (auth.hasPermiOr(route.permissions)) {
-        res.push(route)
-      }
-    } else if (route.roles) {
-      if (auth.hasRoleOr(route.roles)) {
-        res.push(route)
-      }
-    }
-  })
-  return res
 }
 
 export const loadView = (view) => {

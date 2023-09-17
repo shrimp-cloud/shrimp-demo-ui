@@ -7,6 +7,7 @@
     <div class="right-menu">
       <template v-if="appStore.device !== 'mobile'">
         <app-select />
+        <tenant-select />
         <header-search id="header-search" class="right-menu-item" />
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
         <el-tooltip content="布局大小" effect="dark" placement="bottom">
@@ -22,9 +23,9 @@
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <router-link to="/personal/profile">
-                <el-dropdown-item>个人中心</el-dropdown-item>
-              </router-link>
+              <el-dropdown-item command="personalCenter">
+                <span>个人中心</span>
+              </el-dropdown-item>
               <el-dropdown-item command="setLayout" v-if="settingsStore.showSettings">
                 <span>布局设置</span>
               </el-dropdown-item>
@@ -52,6 +53,10 @@ import useUserStore from '@/store/modules/user'
 import useSettingsStore from '@/store/modules/settings'
 
 import AppSelect from './AppSelect'
+import TenantSelect from './TenantSelect'
+
+const appCas = import.meta.env.VITE_APP_CAS;
+const appCode = import.meta.env.VITE_APP_APP_CODE;
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -63,6 +68,9 @@ function toggleSideBar() {
 
 function handleCommand(command) {
   switch (command) {
+    case "personalCenter":
+      toPersonalCenter();
+      break;
     case "setLayout":
       setLayout();
       break;
@@ -74,6 +82,18 @@ function handleCommand(command) {
   }
 }
 
+function toPersonalCenter() {
+  if (appCode === 'shrimp-cas') {
+    window.open(appCas);
+  } else {
+    proxy.$modal.loading("正在使用新窗口打开个人中心，请稍候...");
+    setTimeout(() => {
+      proxy.$modal.closeLoading();
+      window.open(appCas + '#/personal/profile');
+    }, 1000);
+  }
+}
+
 function logout() {
   ElMessageBox.confirm('确定注销并退出系统吗？', '提示', {
     confirmButtonText: '确定',
@@ -81,7 +101,7 @@ function logout() {
     type: 'warning'
   }).then(() => {
     userStore.logOut().then(() => {
-      location.href = '/index';
+      location.href = '/';
     })
   }).catch(() => { });
 }

@@ -6,7 +6,7 @@ import {
   publicSsoLogin,
   publicSsoLoginUserCode,
   publicSsoLogout,
-  userAppList
+  userAppTenantList
 } from '@/api/cas'
 
 import router from '@/router';
@@ -19,6 +19,7 @@ const useUserStore = defineStore(
   {
     state: () => ({
       apps: [],
+      tenants: [],
       name: '',
       avatar: '',
     }),
@@ -73,7 +74,7 @@ const useUserStore = defineStore(
 
           this.name = userInfo.username
           this.avatar = userInfo.avatar || defAva;
-          this.getApps();
+          this.getAppTenants();
           resolve(userInfo)
         })
       },
@@ -84,13 +85,34 @@ const useUserStore = defineStore(
           })
         })
       },
-      getApps() {
-        userAppList().then(res => {
-          this.apps = [];
-          const apps = res.data;
-          for (const app of apps) {
-            app.displayName = app.appCode + ':' + app.appName;
-            this.apps.push(app);
+      getAppTenants() {
+        userAppTenantList().then(res => {
+          const apps = res.data.apps;
+
+          // App
+          const tmpApps = [];
+          if (apps && apps.length > 0) {
+            for (const app of apps) {
+              app.displayName = app.appCode + ':' + app.appName;
+              tmpApps.push(app);
+            }
+            this.apps = tmpApps;
+          }
+
+          // Tenant
+          const tenants = res.data.tenants;
+          if (tenants && tenants.length > 0) {
+            const tmpTenants = [];
+            for (const tenant of tenants) {
+              tenant.displayName = tenant.tenantCode + ':' + tenant.tenantName;
+              tmpTenants.push(tenant);
+            }
+            this.tenants = tmpTenants;
+
+            let tenantCode = localStorage.getItem('tenant-code');
+            if (!tenantCode) {
+              localStorage.setItem('tenant-code', tmpTenants[0].tenantCode);
+            }
           }
         })
       },

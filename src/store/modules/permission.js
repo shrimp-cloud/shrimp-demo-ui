@@ -1,4 +1,3 @@
-import auth from '@/plugins/auth'
 import router, { constantRoutes } from '@/router'
 import { userResTree } from '@/api/cas'
 import Layout from '@/layout/index'

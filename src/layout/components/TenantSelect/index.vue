@@ -6,12 +6,12 @@
         <el-icon><arrow-down-bold /></el-icon>
       </span>
       <template #dropdown>
-        <el-input v-model="form.keyword" clearable @input="query" placeholder="搜索租户"/>
+        <el-input v-model="form.keyword" clearable @input="form" placeholder="搜索租户"/>
         <el-dropdown-menu>
           <el-dropdown-item
               v-for="(item, index) of filtedTenants"
               :key="index"
-              :disabled="ucurrent.tenantCode === item.tenantCode"
+              :disabled="current.tenantCode === item.tenantCode"
               :command="item">
             {{ item.displayName}}
           </el-dropdown-item>

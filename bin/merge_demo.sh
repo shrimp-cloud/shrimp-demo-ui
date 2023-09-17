@@ -4,7 +4,8 @@
 cp -rf ../shrimp-demo-ui/html  ./
 cp -rf ../shrimp-demo-ui/public  ./
 cp -rf ../shrimp-demo-ui/vite  ./
-cp -rf ../shrimp-demo-ui/vite.config.js  ./
+cp -rf ../shrimp-demo-ui/vite  ./
+cp -rf ../shrimp-demo-ui/package.json  ./
 
 # src/api cas,common
 cp -rf ../shrimp-demo-ui/src/api/cas.js  ./src/api

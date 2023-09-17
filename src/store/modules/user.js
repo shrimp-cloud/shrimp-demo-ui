@@ -14,9 +14,7 @@ import defAva from '@/assets/images/profile.jpg'
 
 const appCode = import.meta.env.VITE_APP_APP_CODE;
 
-const useUserStore = defineStore(
-  'user',
-  {
+const useUserStore = defineStore('user', {
     state: () => ({
       apps: [],
       tenants: [],

@@ -66,7 +66,7 @@ const props = defineProps({
 });
 
 defineExpose({show})
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', "change"]);
 const { proxy } = getCurrentInstance();
 const { IMAGE_TYPE } = proxy.useDict("IMAGE_TYPE");
 
@@ -89,7 +89,15 @@ const image = ref({
 
 function show() {
   open.value = true;
+  handleQuery();
 }
+
+/** 搜索按钮操作 */
+function handleQuery() {
+  queryParams.value.current = 1;
+  getList();
+}
+
 
 /** 查询参数列表 */
 function getList() {
@@ -108,17 +116,10 @@ function getList() {
 /** 选择数据 */
 function click(val) {
   emit("update:modelValue", val.imageUrl);
-  /*
   image.value.imageUrl = val.imageUrl;
   image.value.imageAlt = val.imageName;
-  */
+  emit("change", image.value);
   open.value = false;
-}
-
-/** 搜索按钮操作 */
-function handleQuery() {
-  queryParams.value.current = 1;
-  getList();
 }
 
 </script>

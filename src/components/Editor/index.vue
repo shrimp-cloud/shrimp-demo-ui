@@ -17,8 +17,8 @@ import { QuillEditor, Quill } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import ShImage from '@/components/aa/ShImage';
 
-import imageResize from 'quill-image-resize-module';
-Quill.register('modules/imageResize', imageResize);
+import ImageResize from "quill-image-resize-module/src/ImageResize";
+Quill.register('modules/imageResize', ImageResize);
 
 const { proxy } = getCurrentInstance();
 const props = defineProps({

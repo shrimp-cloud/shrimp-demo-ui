@@ -1,19 +1,26 @@
 <template>
   <div class="editor">
       <quill-editor
+        ref="quillEditorRef"
         v-model:content="content"
         contentType="html"
         @textChange="(e) => $emit('update:modelValue', content)"
         :options="options"
         :style="styles"
       />
+    <sh-image ref="imageRef" @change="selectImage" style="display: none"/>
   </div>
 </template>
 
 <script setup>
-import { QuillEditor } from '@vueup/vue-quill';
+import { QuillEditor, Quill } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import ShImage from '@/components/aa/ShImage';
 
+import imageResize from 'quill-image-resize-module';
+Quill.register('modules/imageResize', imageResize);
+
+const { proxy } = getCurrentInstance();
 const props = defineProps({
   /* 编辑器的内容 */
   modelValue: {
@@ -36,24 +43,47 @@ const props = defineProps({
   },
 });
 
+const quillEditorRef = ref("");
+const imageRef = ref("");
+const content = ref("");
+
+const toolbarOptions = [
+  ["bold", "italic", "underline", "strike"],       // 加粗 斜体 下划线 删除线
+  ["blockquote", "code-block"],                    // 引用  代码块
+  [{ list: "ordered" }, { list: "bullet" }],       // 有序、无序列表
+  [{ indent: "-1" }, { indent: "+1" }],            // 缩进
+  [{ size: ["small", false, "large", "huge"] }],   // 字体大小
+  [{ header: [1, 2, 3, 4, 5, 6, false] }],         // 标题
+  [{ color: [] }, { background: [] }],             // 字体颜色、字体背景颜色
+  [{ align: [] }],                                 // 对齐方式
+  ["clean"],                                       // 清除文本格式
+  ["link", "image", "video"]                       // 链接、图片、视频
+];
+
 const options = ref({
   theme: "snow",
   bounds: document.body,
   debug: "warn",
   modules: {
     // 工具栏配置
-    toolbar: [
-      ["bold", "italic", "underline", "strike"],       // 加粗 斜体 下划线 删除线
-      ["blockquote", "code-block"],                    // 引用  代码块
-      [{ list: "ordered" }, { list: "bullet" }],       // 有序、无序列表
-      [{ indent: "-1" }, { indent: "+1" }],            // 缩进
-      [{ size: ["small", false, "large", "huge"] }],   // 字体大小
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],         // 标题
-      [{ color: [] }, { background: [] }],             // 字体颜色、字体背景颜色
-      [{ align: [] }],                                 // 对齐方式
-      ["clean"],                                       // 清除文本格式
-      ["link", "image", "video"]                       // 链接、图片、视频
-    ],
+    toolbar: {
+      container: toolbarOptions,
+      handlers: {
+        'image': function (value) {
+          if (value) {
+            imageRef.value.show();
+          }
+        },
+      },
+    },
+    imageResize: {
+      displayStyles: {
+        backgroundColor: 'black',
+        border: 'none',
+        color: 'white'
+      },
+      modules: ['Resize', 'DisplaySize', 'Toolbar']
+    }
   },
   placeholder: '请输入内容',
   readOnly: props.readOnly
@@ -70,13 +100,27 @@ const styles = computed(() => {
   return style;
 })
 
-const content = ref("");
 watch(() => props.modelValue, (v) => {
   if (v !== content.value) {
     content.value = v === undefined ? "<p></p>" : v;
   }
 }, { immediate: true });
 
+function selectImage(val) {
+  uploadSuccess(val);
+}
+
+function uploadSuccess(image) {
+  if (image && image.imageUrl) {
+    const quill = quillEditorRef.value.getQuill();
+    //获取光标所在位置
+    let length = quill.getSelection().index;
+    //插入图片
+    quill.insertEmbed(length, 'image', image.imageUrl);
+    //移动光标到图片后
+    quill.setSelection(length + 1);
+  }
+}
 
 </script>
 

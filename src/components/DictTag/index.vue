@@ -45,7 +45,7 @@ const props = defineProps({
 
 const values = computed(() => {
   if (props.value !== null && typeof props.value !== "undefined") {
-    return Array.isArray(props.value) ? props.value : [String(props.value)];
+    return Array.isArray(props.value) ? props.value : [props.value];
   } else {
     return [];
   }
@@ -56,13 +56,13 @@ const unmatch = computed(() => {
   if (props.value !== null && typeof props.value !== "undefined") {
     // 传入值为非数组
     if (!Array.isArray(props.value)) {
-      if (props.options.some((v) => v.value == props.value)) return false;
+      if (props.options.some((v) => v.value === props.value)) return false;
       unmatchArray.value.push(props.value);
       return true;
     }
     // 传入值为Array
     props.value.forEach((item) => {
-      if (!props.options.some((v) => v.value == item))
+      if (!props.options.some((v) => v.value === item))
         unmatchArray.value.push(item);
     });
     return true;

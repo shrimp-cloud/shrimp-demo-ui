@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## 复制 demo 内容
+# 复制 demo 内容
 cp -rf ../shrimp-demo-ui/html  ./
 cp -rf ../shrimp-demo-ui/public  ./
 cp -rf ../shrimp-demo-ui/vite  ./

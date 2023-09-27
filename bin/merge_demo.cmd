@@ -1,5 +1,7 @@
 :: cmd 脚本
 
+::  ../shrimp-demo-ui/bin/merge_demo.cmd
+
 xcopy "..\shrimp-demo-ui\html"  .\html /S/Y
 xcopy "..\shrimp-demo-ui\public"  .\public /S/Y
 xcopy "..\shrimp-demo-ui\vite"  .\vite /S/Y

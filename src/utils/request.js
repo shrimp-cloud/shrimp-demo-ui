@@ -101,7 +101,7 @@ service.interceptors.response.use(res => {
         }).then(() => {
           isRelogin.show = false;
           useUserStore().logOut().then(() => {
-            location.href = '/index';
+            location.href = '#/index';
           })
       }).catch(() => {
         isRelogin.show = false;

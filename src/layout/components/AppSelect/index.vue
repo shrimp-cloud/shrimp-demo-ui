@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dropdown trigger="click" @command="handleSelectApp" style="margin-top: 18px;">
+    <el-dropdown trigger="click" @command="handleSelectApp" style="margin-top: 10px;">
       <span class="el-dropdown-link" style="padding-right: 12px;">
         {{current.displayName}}
         <el-icon><arrow-down-bold /></el-icon>

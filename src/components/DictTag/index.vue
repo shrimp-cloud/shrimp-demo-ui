@@ -49,7 +49,7 @@ const props = defineProps({
 
 const values = computed(() => {
   if (props.value === null || typeof props.value === 'undefined' || props.value === '') return [];
-  return Array.isArray(props.value) ? props.value : props.value;
+  return Array.isArray(props.value) ? props.value : [props.value];
 });
 
 const unmatch = computed(() => {

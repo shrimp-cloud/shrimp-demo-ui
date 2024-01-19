@@ -6,8 +6,8 @@ export function publicCaptchaPicture(params) {
 export function publicSsoLogin(data) {
     return request({url: '/cas/public/sso/login', method: 'post', data})
 }
-export function publicSsoLoginUserCode() {
-    return request({url: '/cas/public/sso/login/userCode', method: 'get'})
+export function publicSsoLoginUsername() {
+    return request({url: '/cas/public/sso/login/username', method: 'get'})
 }
 export function publicSsoLogout() {
     return request({url: '/cas/public/sso/logout', method: 'get'})

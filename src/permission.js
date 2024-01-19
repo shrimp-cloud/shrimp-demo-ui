@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
     }
   } else if(token && !isSelf) {
     // token 有效性探测
-    useUserStore().getUserCode().then(res => {
+    useUserStore().getUsername().then(res => {
       if (!!res) {
         // 不使用 * 获取不到，使用 * 会被非法站点捕获，暂无其他解决方法
         window.top.postMessage(token, '*');

@@ -4,7 +4,7 @@ import { Base64 } from 'js-base64';
 import { encrypt } from '@/utils/jsencrypt'
 import {
   publicSsoLogin,
-  publicSsoLoginUserCode,
+  publicSsoLoginUsername,
   publicSsoLogout,
   userAppTenantList
 } from '@/api/cas'
@@ -76,9 +76,9 @@ const useUserStore = defineStore('user', {
           resolve(userInfo)
         })
       },
-      getUserCode() {
+      getUsername() {
         return new Promise((resolve, reject) => {
-          publicSsoLoginUserCode().then(res => {
+          publicSsoLoginUsername().then(res => {
             resolve(res.data)
           })
         })

@@ -5,7 +5,7 @@
     </template>
   </el-input>
 
-  <el-dialog :title="title" v-model="open" width="840px" append-to-body @opened="getLocation">
+  <el-dialog :title="title" v-model="open" width="840px" @opened="getLocation">
     <div id="container" style="width: 800px; height: 480px"></div>
   </el-dialog>
 </template>

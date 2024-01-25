@@ -14,7 +14,7 @@
       </template>
     </el-image>
 
-    <el-dialog title="请选择图片" v-model="open" width="840px" append-to-body draggable :close-on-click-modal="false">
+    <el-dialog title="请选择图片" v-model="open" width="840px">
       <el-form :model="queryParams" ref="queryRef" :inline="true" label-width="68px">
         <el-form-item prop="imageType">
           <el-radio-group v-model="queryParams.imageType" class="ml-4" @change="handleQuery">

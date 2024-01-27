@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      if (!useUserStore().name) {
+      if (!useUserStore().username) {
         isRelogin.show = true
         // 判断当前用户是否已拉取完user_info信息
         useUserStore().getInfo().then(() => {
@@ -50,10 +50,10 @@ router.beforeEach((to, from, next) => {
     }
   } else if(token && !isSelf) {
     // token 有效性探测
-    useUserStore().getUsername().then(res => {
-      if (!!res) {
+    useUserStore().bizLogin(to.query?.appCode).then(bizToken => {
+      if (!!bizToken) {
         // 不使用 * 获取不到，使用 * 会被非法站点捕获，暂无其他解决方法
-        window.top.postMessage(token, '*');
+        window.top.postMessage(bizToken, '*');
       } else {
         removeToken();
         next();

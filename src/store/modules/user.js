@@ -4,7 +4,7 @@ import { Base64 } from 'js-base64';
 import { encrypt } from '@/utils/jsencrypt'
 import {
   publicSsoLogin,
-  publicSsoLoginUsername,
+  publicSsoBizLogin,
   publicSsoLogout,
   userAppTenantList
 } from '@/api/cas'
@@ -18,7 +18,8 @@ const useUserStore = defineStore('user', {
     state: () => ({
       apps: [],
       tenants: [],
-      name: '',
+      username: '',
+      nickname: '',
       avatar: '',
     }),
     actions: {
@@ -47,7 +48,8 @@ const useUserStore = defineStore('user', {
             if (!search || search.indexOf('onlySelf=true') === -1) {
               setToken(token);
             }
-            resolve(token);
+            const bizToken = res.data.bizToken;
+            resolve(bizToken || token);
           }).catch(error => {
             reject(error)
           })
@@ -70,16 +72,21 @@ const useUserStore = defineStore('user', {
           let userInfo = Base64.decode(payload);
           userInfo = JSON.parse(userInfo);
 
-          this.name = userInfo.username
+          this.username = userInfo.username
+          this.nickname = userInfo.nickname
           this.avatar = userInfo.avatar || defAva;
           this.getAppTenants();
           resolve(userInfo)
         })
       },
-      getUsername() {
+      bizLogin(appCode) {
         return new Promise((resolve, reject) => {
-          publicSsoLoginUsername().then(res => {
-            resolve(res.data)
+          if (!appCode) {
+            reject('appCode is null!');
+            return;
+          }
+          publicSsoBizLogin({appCode: appCode}).then(res => {
+            resolve(res.data.bizToken);
           })
         })
       },

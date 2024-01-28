@@ -4,7 +4,7 @@ import { Base64 } from 'js-base64';
 import { encrypt } from '@/utils/jsencrypt'
 import {
   publicSsoLogin,
-  publicSsoBizLogin,
+  ssoBizLogin,
   publicSsoLogout,
   userAppTenantList
 } from '@/api/cas'
@@ -84,7 +84,7 @@ const useUserStore = defineStore('user', {
             reject('appCode is null!');
             return;
           }
-          publicSsoBizLogin({appCode: appCode}).then(res => {
+          ssoBizLogin({appCode: appCode}).then(res => {
             resolve(res.data.bizToken);
           })
         })

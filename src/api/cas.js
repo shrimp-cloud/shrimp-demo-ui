@@ -6,11 +6,11 @@ export function publicCaptchaPicture(params) {
 export function publicSsoLogin(data) {
     return request({url: '/cas/public/sso/login', method: 'post', data})
 }
-export function publicSsoBizLogin(data) {
-    return request({url: '/cas/public/sso/biz/login', method: 'post', data})
-}
 export function publicSsoLogout() {
     return request({url: '/cas/public/sso/logout', method: 'get'})
+}
+export function ssoBizLogin(data) {
+    return request({url: '/cas/sso/biz/login', method: 'post', data})
 }
 export function userResTree() {
     return request({url: '/cas/user/res/tree', method: 'get'})

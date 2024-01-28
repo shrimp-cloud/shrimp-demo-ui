@@ -48,8 +48,7 @@ const useUserStore = defineStore('user', {
             if (!search || search.indexOf('onlySelf=true') === -1) {
               setToken(token);
             }
-            const bizToken = res.data.bizToken;
-            resolve(bizToken || token);
+            resolve(res.data);
           }).catch(error => {
             reject(error)
           })

@@ -24,16 +24,14 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(config => {
   const token = getToken();
-  const tenantCode = localStorage.getItem('tenant-code');
+  const tenantCode = localStorage.getItem('tenant-code') || 'default';
   if (token) {
     config.headers['token'] = token;
   }
   if (appCode) {
     config.headers['app-code'] = appCode;
   }
-  if (tenantCode) {
-    config.headers['tenant-code'] = tenantCode;
-  }
+  config.headers['tenant-code'] = tenantCode;
   config.headers['trace-id'] = guid();
 
   // 是否需要防止数据重复提交

@@ -46,8 +46,8 @@ import DictTag from '@/components/DictTag'
 import { ElTable, ElDialog } from 'element-plus';
 
 ElTable.props.border = {type: Boolean, default: true};
-ElTable.props.showOverflowTooltip = {type: Boolean, default: true};
 ElTable.TableColumn.props.align = {type: String, default: 'left'};
+ElTable.TableColumn.props.showOverflowTooltip = {type: Boolean, default: true};
 ElDialog.props.appendToBody = {type: Boolean, default: true};
 ElDialog.props.draggable = {type: Boolean, default: true};
 ElDialog.props.closeOnClickModal = {type: Boolean, default: false};

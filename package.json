@@ -1,7 +1,7 @@
 {
-  "name": "shrimp-demo-ui",
+  "name": "shrimp-ui",
   "version": "1.0.0",
-  "description": "shrimp-示例",
+  "description": "shrimp-系列前端",
   "author": "shrimp",
   "license": "MIT",
   "type": "module",

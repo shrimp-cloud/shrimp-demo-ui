@@ -21,6 +21,7 @@ xcopy "..\shrimp-demo-ui\src\plugins"  .\src\plugins /S/Y
 xcopy "..\shrimp-demo-ui\src\router"  .\src\router /S/Y
 xcopy "..\shrimp-demo-ui\src\store"  .\src\store /S/Y
 xcopy "..\shrimp-demo-ui\src\utils"  .\src\utils /S/Y
+xcopy "..\shrimp-demo-ui\src\views\login.vue"  .\src\views /S/Y
 xcopy "..\shrimp-demo-ui\src\App.vue"  .\src\ /S/Y
 xcopy "..\shrimp-demo-ui\src\main.js"  .\src\ /S/Y
 xcopy "..\shrimp-demo-ui\src\permission.js"  .\src\ /S/Y

@@ -19,7 +19,7 @@ const fullPath = computed(() => {
 window.addEventListener('message', function(e){
   const token = e.data;
   // TODO 添加其他简单的 token 判断，另外 后端返回 token 格式不对的时候，需要清理 token
-  if (!token || typeof token !== 'string' || token.split(".") !== 3) {
+  if (!token || typeof token !== 'string' || token.split(".").length !== 3) {
     return;
   }
   setToken(token);

@@ -21,7 +21,6 @@ cp -rf ../shrimp-demo-ui/src/router  ./src/
 cp -rf ../shrimp-demo-ui/src/store  ./src/
 cp -rf ../shrimp-demo-ui/src/utils  ./src/
 cp -rf ../shrimp-demo-ui/src/views/login.vue  ./src/views/
-cp -rf ../shrimp-demo-ui/src/views/loginCas.vue  ./src/views/
 cp -rf ../shrimp-demo-ui/src/App.vue  ./src/
 cp -rf ../shrimp-demo-ui/src/main.js  ./src/
 cp -rf ../shrimp-demo-ui/src/permission.js  ./src/

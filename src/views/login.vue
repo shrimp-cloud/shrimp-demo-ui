@@ -13,12 +13,11 @@ const appCode = import.meta.env.VITE_APP_APP_CODE;
 const { query } = useRoute();
 const router = useRouter();
 const fullPath = computed(() => {
-  return `${CAS}/#/login?appCode=${appCode}`
+  return CAS + '/#/login?appCode=' + appCode + '&_=' + new Date().getTime();
 });
 
 window.addEventListener('message', function(e){
   const token = e.data;
-  // TODO 添加其他简单的 token 判断，另外 后端返回 token 格式不对的时候，需要清理 token
   if (!token || typeof token !== 'string' || token.split(".").length !== 3) {
     return;
   }

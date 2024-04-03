@@ -5,6 +5,7 @@ import { encrypt } from '@/utils/jsencrypt'
 import {
   publicSsoLogin,
   ssoBizLogin,
+  publicSsoLoginUsername,
   publicSsoLogout,
   userAppTenantList
 } from '@/api/cas'
@@ -86,6 +87,13 @@ const useUserStore = defineStore('user', {
           }
           ssoBizLogin({appCode: appCode}).then(res => {
             resolve(res.data.bizToken);
+          })
+        })
+      },
+      getUsername() {
+        return new Promise((resolve, reject) => {
+          publicSsoLoginUsername().then(res => {
+            resolve(res.data)
           })
         })
       },

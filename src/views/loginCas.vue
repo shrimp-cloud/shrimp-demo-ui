@@ -98,7 +98,7 @@ function handleLogin() {
               router.push({ path: redirect.value || "/" });
             } else {
               // 不使用 * 获取不到，使用 * 会被非法站点捕获，暂无其他解决方法
-              window.top.postMessage(data.bizToken, '*');
+              window.top.postMessage(data.token, '*');
             }
           }, 600);
         }

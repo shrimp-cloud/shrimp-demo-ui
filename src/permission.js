@@ -49,12 +49,25 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else if(token && !isSelf) {
+    // token 有效性探测
+    useUserStore().getUsername().then(res => {
+      if (!!res) {
+        // 不使用 * 获取不到，使用 * 会被非法站点捕获，暂无其他解决方法
+        window.top.postMessage(token, '*');
+      } else {
+        removeToken();
+        next();
+      }
+      NProgress.done()
+    })
+
+    // token 有效性探测
+    /*
     const appCode = to.query?.appCode;
     if (!appCode) {
       ElMessage.error("请求登录未发现 app 编码，无法请求登录");
       NProgress.done();
     }
-    // token 有效性探测
     useUserStore().bizLogin(appCode).then(bizToken => {
       if (!!bizToken) {
         // 不使用 * 获取不到，使用 * 会被非法站点捕获，暂无其他解决方法
@@ -65,6 +78,7 @@ router.beforeEach((to, from, next) => {
       }
       NProgress.done()
     })
+    */
   } else {
     // 没有token
     if (whiteList.indexOf(to.path) !== -1) {

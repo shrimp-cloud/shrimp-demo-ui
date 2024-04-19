@@ -10,7 +10,6 @@ import {
   userAppTenantList
 } from '@/api/cas'
 
-import router from '@/router';
 import defAva from '@/assets/images/profile.jpg'
 
 const appCode = import.meta.env.VITE_APP_APP_CODE;
@@ -27,12 +26,8 @@ const useUserStore = defineStore('user', {
       // 登录
       login(userInfo) {
         return new Promise((resolve, reject) => {
-          let queryAppCode = router.currentRoute?._value?.query?.appCode;
-          if (!queryAppCode) {
-            queryAppCode = appCode;
-          }
           publicSsoLogin({
-            appCode: queryAppCode,
+            appCode: userInfo.appCode || appCode,
             username: userInfo.username,
             password: encrypt(userInfo.password),
             captchaId: userInfo.captchaId,

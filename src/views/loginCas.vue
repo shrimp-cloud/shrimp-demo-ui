@@ -44,15 +44,16 @@
 </template>
 
 <script setup>
-import { encrypt, decrypt } from "@/utils/jsencrypt";
+import {decrypt, encrypt} from "@/utils/jsencrypt";
 import useUserStore from '@/store/modules/user'
-import { publicCaptchaPicture } from "@/api/cas";
+import {publicCaptchaPicture} from "@/api/cas";
 
 const userStore = useUserStore()
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 
 const loginForm = ref({
+  appCode: undefined,
   username: "",
   password: "",
   rememberMe: false,
@@ -90,6 +91,10 @@ function handleLogin() {
       }
       loginMsg.value = '登录中...';
       // 调用action的登录方法
+      let queryAppCode = router.currentRoute?._value?.query?.appCode;
+      if (!queryAppCode) {
+        loginForm.value.appCode = queryAppCode;
+      }
       userStore.login(loginForm.value).then((data) => {
         loginMsg.value = data.msg;
         if (data.status === 0) {

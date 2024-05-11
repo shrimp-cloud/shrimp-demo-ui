@@ -66,6 +66,11 @@
   z-index: auto !important;
 }
 
+// el-drawer 的 header 太高了
+.el-drawer__header {
+  margin-bottom: 0;
+}
+
 // 分页组件高度
 .pagination-container {
   padding-top: 3px !important;

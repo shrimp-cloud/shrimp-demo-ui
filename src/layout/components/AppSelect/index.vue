@@ -33,14 +33,25 @@ const form = ref({})
 
 // 获取当前 app
 function getCurrent() {
-  queryApps();
-  const apps = userStore.apps;
-  for (const app of apps) {
-    if (app.appCode === appCode) {
-      current.value = app;
-      break;
+  let times = 12;
+  const interval = setInterval(() => {
+    times --;
+    if (times <= 0) {
+      clearInterval(interval);
+      return;
     }
-  }
+    queryApps();
+    const apps = filtedApps.value;
+    if (apps.length > 0) {
+      clearInterval(interval);
+      for (const app of apps) {
+        if (app.appCode === appCode) {
+          current.value = app;
+          break;
+        }
+      }
+    }
+  }, 500);
 }
 
 // 通过用户的查询条件，展示被搜索的 app

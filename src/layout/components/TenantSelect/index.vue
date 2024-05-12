@@ -31,21 +31,31 @@ const filtedTenants = ref([]);
 const form = ref({})
 
 function getCurrent() {
-  const tenants = userStore.tenants;
-  if (!tenants || tenants.length === 0) {
-    return;
-  }
-  queryTenants();
   const tenantCode = localStorage.getItem('tenant-code');
-  if (!tenantCode) {
-    return;
-  }
-  for (const tenant of tenants) {
-    if (tenant.tenantCode === tenantCode) {
-      current.value = tenant;
-      break;
+  let times = 12;
+  const interval = setInterval(() => {
+    times --;
+    if (times <= 0) {
+      clearInterval(interval);
+      return;
     }
-  }
+    queryTenants();
+    const tenants = filtedTenants.value;
+    if (tenants.length > 0) {
+      clearInterval(interval);
+      if (tenantCode) {
+        for (const tenant of tenants) {
+          if (tenant.tenantCode === tenantCode) {
+            current.value = tenant;
+            break;
+          }
+        }
+      } else {
+        current.value = tenants[0];
+        localStorage.setItem('tenant-code', current.value.tenantCode);
+      }
+    }
+  }, 500);
 }
 
 function queryTenants() {
@@ -64,7 +74,7 @@ function handleSelectTenant(tenant) {
   proxy.$modal.loading("正在刷新 " + tenant.displayName + "，请稍候...");
   setTimeout(() => {
     proxy.$modal.closeLoading();
-    localStorage.setItem('tenant-code', tenant.tenantCode)
+    localStorage.setItem('tenant-code', tenant.tenantCode);
     location.reload();
   }, 1000);
 }

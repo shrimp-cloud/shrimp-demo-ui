@@ -8,8 +8,14 @@
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="loginForm.password" type="password" size="large" auto-complete="off" placeholder="密码" @keyup.enter="handleLogin">
+        <el-input v-model="loginForm.password" :type="pwdView ? 'text': 'password'" size="large" auto-complete="off" placeholder="密码" @keyup.enter="handleLogin">
           <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+          <template #suffix>
+            <el-icon @click="pwdViewSwitch">
+              <Hide v-if="pwdView"/>
+              <View v-else/>
+            </el-icon>
+          </template>
         </el-input>
       </el-form-item>
       <el-form-item prop="captchaCode" v-if="loginForm.captchaId">
@@ -73,6 +79,11 @@ const loginMsg = ref('请登录!');
 // 注册开关
 const register = ref(false);
 const redirect = ref(undefined);
+const pwdView = ref(false);
+
+function pwdViewSwitch() {
+  pwdView.value = !pwdView.value;
+}
 
 function handleLogin() {
   proxy.$refs.loginRef.validate(valid => {

@@ -1,13 +1,13 @@
 <template>
   <div>
     <el-upload
-      :action="uploadUrl"
+      action="#"
+      :http-request="handleUpload"
       :before-upload="handleBeforeUpload"
       :on-success="handleUploadSuccess"
       :on-error="handleUploadError"
       name="file"
       :show-file-list="false"
-      :headers="headers"
       class="editor-img-uploader"
       v-if="type === 'url'"
     >
@@ -30,19 +30,20 @@
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { getToken } from "@/utils/auth";
+import request from "@/utils/request.js";
 
 const { proxy } = getCurrentInstance();
 
 const quillEditorRef = ref();
-const uploadUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload"); // 上传的图片服务器地址
-const headers = ref({
-  Authorization: "Bearer " + getToken()
-});
 
 const props = defineProps({
   /* 编辑器的内容 */
   modelValue: {
     type: String,
+  },
+  busnessType: {
+    type: String,
+    default: "editor"
   },
   /* 高度 */
   height: {
@@ -151,21 +152,29 @@ function handleBeforeUpload(file) {
   return true;
 }
 
+// 上传
+function handleUpload(form) {
+  const formData = new FormData();
+  formData.append('file', form.file);
+  request.post(`/sys/common/upload?busnessType=${props.busnessType}`, formData).then(res => {
+    // 使用了 http-request 之后，不会自动回调 handleUploadSuccess, 需要自行调用
+    handleUploadSuccess(res, form.file);
+  }).finally(() => {
+    proxy.$modal.closeLoading();
+  });
+}
+
 // 上传成功处理
 function handleUploadSuccess(res, file) {
-  // 如果上传成功
-  if (res.code === 200) {
-    // 获取富文本实例
-    let quill = toRaw(quillEditorRef.value).getQuill();
-    // 获取光标位置
-    let length = quill.selection.savedRange.index;
-    // 插入图片，res.url为服务器返回的图片链接地址
-    quill.insertEmbed(length, "image", import.meta.env.VITE_APP_BASE_API + res.fileName);
-    // 调整光标到最后
-    quill.setSelection(length + 1);
-  } else {
-    proxy.$modal.msgError("图片插入失败");
-  }
+  // 获取富文本实例
+  let quill = toRaw(quillEditorRef.value).getQuill();
+  // 获取光标位置
+  let length = quill.selection.savedRange.index;
+  // 插入图片，res.url为服务器返回的图片链接地址
+  quill.insertEmbed(length, "image", res.data.url);
+  // 调整光标到最后
+  quill.setSelection(length + 1);
+
 }
 
 // 上传失败处理

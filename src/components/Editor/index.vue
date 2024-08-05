@@ -29,8 +29,8 @@
 <script setup>
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import 'quill-image-resize-module'
-import request from "@/utils/request.js";
+import "quill-image-resize-module";
+import request from "@/utils/request";
 
 const { proxy } = getCurrentInstance();
 

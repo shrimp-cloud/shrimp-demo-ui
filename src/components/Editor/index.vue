@@ -29,7 +29,6 @@
 <script setup>
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import "quill-image-resize-module";
 import request from "@/utils/request";
 
 const { proxy } = getCurrentInstance();
@@ -93,10 +92,7 @@ const options = ref({
       [{ align: [] }],                                // 对齐方式
       ["clean"],                                      // 清除文本格式
       ["link", "image", "video"]                      // 链接、图片、视频
-    ],
-    imageResize: {
-      modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-    }
+    ]
   },
   placeholder: props.placeholder,
   readOnly: props.readOnly

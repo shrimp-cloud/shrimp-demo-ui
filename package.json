@@ -29,7 +29,6 @@
     "monaco-editor": "^0.41.0",
     "nprogress": "0.2.0",
     "pinia": "2.1.7",
-    "quill-image-resize-module": "3.0.0",
     "vue": "3.3.9",
     "vue-cropper": "1.1.1",
     "vue-router": "4.2.5",

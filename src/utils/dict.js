@@ -47,7 +47,8 @@ export function useDict(...args) {
           value: isNaN(p.dictValue) ? p.dictValue : Number(p.dictValue), // 若 value 为数字，需要转成数字
           label: p.dictLabel,
           elTagType: p.elType,
-          elTagClass: p.cssClass
+          elTagClass: p.cssClass,
+          description: p.description
         }))
         // 缓存
         const stroage = {

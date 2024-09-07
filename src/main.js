@@ -41,6 +41,8 @@ import ImagePreview from "@/components/ImagePreview"
 import TreeSelect from '@/components/TreeSelect'
 // 字典标签组件
 import DictTag from '@/components/DictTag'
+// 表单提示
+import FormTips from '@/components/FormTips'
 
 // 全局默认属性设置
 import { ElTable, ElDialog, ElDrawer } from 'element-plus';
@@ -76,6 +78,7 @@ app.component('ImageUpload', ImageUpload)
 app.component('ImagePreview', ImagePreview)
 app.component('RightToolbar', RightToolbar)
 app.component('Editor', Editor)
+app.component('FormTips', FormTips)
 
 app.use(router)
 app.use(store)

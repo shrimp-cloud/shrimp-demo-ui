@@ -83,11 +83,12 @@ function tree2RuoyiTree(reses, currentRoute) {
 
     const menu = {};
     menu.path = p;
-    menu.name = i + '-' + d.resName;
+    menu.name = getRouterName(cr);
     menu.hidden = d.hidden;
     menu.redirect = (p === '' || p === '/') ? '/index': 'noRedirect';
     menu.component = d.component ? d.component : 'error/index';
     menu.alwaysShow = false;
+
     const meta = {};
     meta.title = d.resName;
     meta.icon = d.icon ? d.icon : 'form';
@@ -105,6 +106,30 @@ function tree2RuoyiTree(reses, currentRoute) {
     }
   }
   return menus.length > 0 ? menus : undefined;
+}
+
+// 使用路由转换成路由名称
+function getRouterName(path) {
+  if (!path) {
+    return;
+  }
+  let name = path;
+  for (;;) {
+    const _ = name.indexOf("/");
+    // 没有 / 了
+    if (_ === -1) {
+      break;
+    }
+    // / 在最后一位了
+    const lth = name.length;
+    if ( _ === lth - 1) {
+      name = name.substring(0, lth -1);
+      break;
+    }
+    name = name.substring(0, _) + name.substring(_ + 1, _ + 2).toUpperCase() + name.substring(_ + 2);
+  }
+
+  return name.substring(0,1).toUpperCase() + name.substring(1);
 }
 
 // 获取按钮资源

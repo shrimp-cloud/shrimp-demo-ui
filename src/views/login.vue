@@ -7,13 +7,12 @@
 <script setup>
 import { setToken } from '@/utils/auth'
 import { useRoute, useRouter } from 'vue-router';
+import {appCode, cas} from '~/env';
 
-const CAS = import.meta.env.VITE_APP_CAS;
-const appCode = import.meta.env.VITE_APP_APP_CODE;
 const { query } = useRoute();
 const router = useRouter();
 const fullPath = computed(() => {
-  return CAS + '/#/login?appCode=' + appCode + '&_=' + new Date().getTime();
+  return cas + '/#/login?appCode=' + appCode + '&_=' + new Date().getTime();
 });
 
 window.addEventListener('message', function(e){

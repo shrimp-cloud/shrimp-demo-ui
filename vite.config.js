@@ -5,7 +5,8 @@ import createVitePlugins from './vite/plugins'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => {
-  const env = loadEnv(mode, process.cwd())
+  // const env = loadEnv(mode, process.cwd())
+  const env = {'VITE_APP_ENV': 'production', 'VITE_BUILD_COMPRESS': 'gzip'}
   const { VITE_APP_ENV } = env
   return {
     envDir: 'env',

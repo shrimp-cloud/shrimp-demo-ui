@@ -54,9 +54,7 @@ import useSettingsStore from '@/store/modules/settings'
 
 import AppSelect from './AppSelect'
 import TenantSelect from './TenantSelect'
-
-const appCas = import.meta.env.VITE_APP_CAS;
-const appCode = import.meta.env.VITE_APP_APP_CODE;
+import {appCode, cas} from '~/env';
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -84,12 +82,12 @@ function handleCommand(command) {
 
 function toPersonalCenter() {
   if (appCode === 'shrimp-cas') {
-    window.open(appCas);
+    window.open(cas);
   } else {
     proxy.$modal.loading("正在使用新窗口打开个人中心，请稍候...");
     setTimeout(() => {
       proxy.$modal.closeLoading();
-      window.open(appCas + '#/personal/profile');
+      window.open(cas + '#/personal/profile');
     }, 1000);
   }
 }

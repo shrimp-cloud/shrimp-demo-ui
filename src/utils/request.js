@@ -6,7 +6,7 @@ import { tansParams, blobValidate } from '@/utils/ruoyi'
 import cache from '@/plugins/cache'
 import { saveAs } from 'file-saver'
 import useUserStore from '@/store/modules/user'
-const appCode = import.meta.env.VITE_APP_APP_CODE;
+import {appCode, baseApi} from '~/env';
 
 let downloadLoadingInstance;
 // 是否显示重新登录
@@ -16,7 +16,7 @@ axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL: baseApi,
   // 超时
   timeout: 12000
 })

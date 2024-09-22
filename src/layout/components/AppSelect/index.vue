@@ -23,9 +23,9 @@
 
 <script setup>
 import useUserStore from '@/store/modules/user';
+import {appCode} from '~/env';
 
 const { proxy } = getCurrentInstance();
-const appCode = import.meta.env.VITE_APP_APP_CODE;
 const userStore = useUserStore()
 const current = ref({});
 const filtedApps = ref([]);

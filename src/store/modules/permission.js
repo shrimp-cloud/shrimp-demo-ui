@@ -4,7 +4,7 @@ import Layout from '@/layout/index'
 import ParentView from '@/components/ParentView'
 import InnerLink from '@/layout/components/InnerLink'
 import {ElMessageBox} from "element-plus";
-const CAS = import.meta.env.VITE_APP_CAS;
+import {cas} from '~/env';
 
 // 匹配views里面所有的.vue文件
 const modules = import.meta.glob('./../../views/**/*.vue')
@@ -43,7 +43,7 @@ const usePermissionStore = defineStore('permission', {
           if (!data || data.length === 0) {
             // cas 是不会走到这里的
             const msg = '您没有此系统的任何权限！';
-            ElMessageBox.alert(msg, '无权限访问', {  confirmButtonText: '--> 去个人中心', callback: (action) => location.href = CAS})
+            ElMessageBox.alert(msg, '无权限访问', {  confirmButtonText: '--> 去个人中心', callback: (action) => location.href = cas})
             reject(msg);
             return;
           }

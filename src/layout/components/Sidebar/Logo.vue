@@ -18,6 +18,7 @@
 <script setup>
 import variables from '@/assets/styles/variables.module.scss'
 import useSettingsStore from '@/store/modules/settings'
+import {title} from '~/env';
 
 defineProps({
   collapse: {
@@ -26,7 +27,6 @@ defineProps({
   }
 })
 
-const title = import.meta.env.VITE_APP_TITLE;
 const settingsStore = useSettingsStore();
 const sideTheme = computed(() => settingsStore.sideTheme);
 </script>

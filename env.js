@@ -40,7 +40,6 @@ function getConfig(env) {
   return c;
 }
 
-
 const config = getConfig(env);
 export const title = config['title'];
 export const cas = config['cas'];

@@ -1,8 +1,11 @@
+const name = "示例系统";
+export const appCode = 'shrimp-demo';
+
 const configs = {
-  // "local": {"cas": "http://cas.uat.wkclz.com", "title": "示例系统【DEV】", "baseApi": "/api"}
-  "local": {"cas": "http://cas.uat.wkclz.com", "title": "示例系统【DEV】", "baseApi": "https://api.uat.wkclz.com"},
-  "uat"  : {"cas": "http://cas.uat.wkclz.com", "title": "示例系统【UAT】", "baseApi": "https://api.uat.wkclz.com"},
-  "prod" : {"cas": "http://cas.wkclz.com",     "title": "示例系统",        "baseApi": "https://api.wkclz.com"}
+  // "local": {"cas": "http://cas.uat.wkclz.com", "title": name + "【DEV】", "baseApi": "/api"}
+  "local": {"cas": "http://cas.uat.wkclz.com", "title": name + "【DEV】", "baseApi": "https://api.uat.wkclz.com"},
+  "uat"  : {"cas": "http://cas.uat.wkclz.com", "title": name + "【UAT】", "baseApi": "https://api.uat.wkclz.com"},
+  "prod" : {"cas": "http://cas.wkclz.com",     "title": name,             "baseApi": "https://api.wkclz.com"}
 };
 
 function getEnv() {
@@ -37,7 +40,6 @@ function getConfig(env) {
   return c;
 }
 
-export const appCode = 'shrimp-demo';
 
 const config = getConfig(env);
 export const title = config['title'];

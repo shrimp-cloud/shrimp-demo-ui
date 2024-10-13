@@ -232,7 +232,7 @@ onMounted(() => {
   }
   .codeEditBox {
     width: 100%;
-    min-height: 240px;
+    min-height: 180px;
     height: 100%;
     overflow: auto;
   }

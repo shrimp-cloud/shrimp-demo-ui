@@ -146,7 +146,8 @@ function handleExceed() {
 function handleUpload(form) {
   const formData = new FormData();
   formData.append('file', form.file);
-  request.post(`/sys/common/upload?busnessType=${props.busnessType}`, formData).then(res => {
+  const headers = {'Content-Type': 'multipart/form-data;'}
+  request.post(`/mdm/common/upload?busnessType=${props.busnessType}`, formData, {headers}).then(res => {
     if (res.code !== 1) {
       proxy.$modal.msgError('上传异常：' + res.msg);
       return;

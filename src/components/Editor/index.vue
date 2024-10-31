@@ -155,7 +155,8 @@ function handleBeforeUpload(file) {
 function handleUpload(form) {
   const formData = new FormData();
   formData.append('file', form.file);
-  request.post(`/sys/common/upload?busnessType=${props.busnessType}`, formData).then(res => {
+  const headers = {'Content-Type': 'multipart/form-data;'}
+  request.post(`/mdm/common/upload?busnessType=${props.busnessType}`, formData, {headers}).then(res => {
     // 使用了 http-request 之后，不会自动回调 handleUploadSuccess, 需要自行调用
     handleUploadSuccess(res, form.file);
   }).finally(() => {

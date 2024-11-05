@@ -16,7 +16,7 @@ export function useDict(...args) {
 
     // 查缓存，若缓存已经存在，不再请求
     const renew = [];
-    for (let type of args) {
+    for (const type of args) {
       const key = 'DICT_' + type;
       const item = localStorage.getItem(key);
       if (item) {
@@ -41,14 +41,15 @@ export function useDict(...args) {
     commonDictsList({dictType: dictTypes}).then(rt => {
       const data = rt.data;
       const types = Object.keys(data)
-      for (let type of types) {
+      for (const type of types) {
         // 加入到返回的 res
         res.value[type] = data[type].map(p => ({
           value: isNaN(p.dictValue) ? p.dictValue : Number(p.dictValue), // 若 value 为数字，需要转成数字
           label: p.dictLabel,
           elTagType: p.elType,
           elTagClass: p.cssClass,
-          description: p.description
+          description: p.description,
+          disabled: 1 - (p.enableFlag === undefined ? 1 : 0)
         }))
         // 缓存
         const stroage = {

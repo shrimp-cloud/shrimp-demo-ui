@@ -97,7 +97,10 @@ service.interceptors.response.use(res => {
 },
 error => {
   console.log('err:', error)
-  const status = error.response.status;
+  const status = error?.response?.status;
+  if (status === undefined) {
+    return Promise.reject(error)
+  }
   const message = error.response.data?.msg || error.message;
 
   if (status >= 500 || status === 403) {

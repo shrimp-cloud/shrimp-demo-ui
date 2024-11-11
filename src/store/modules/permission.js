@@ -8,6 +8,7 @@ import {cas} from '~/env';
 
 // 匹配views里面所有的.vue文件
 const modules = import.meta.glob('./../../views/**/*.vue')
+const menuNames = [];
 
 const usePermissionStore = defineStore('permission', {
   state: () => ({
@@ -81,9 +82,15 @@ function tree2RuoyiTree(reses, currentRoute) {
     let p = d.routePath || '';
     cr = p.startsWith('/') ? p : cr + '/' + p;
 
+    let name = getRouterName(cr);
+    if (menuNames.indexOf(name) > -1) {
+      name = name + "_" + menuNames.length;
+    }
+    menuNames.push(name);
+
     const menu = {};
     menu.path = p;
-    menu.name = getRouterName(cr);
+    menu.name = name;
     menu.hidden = d.hidden;
     menu.redirect = (p === '' || p === '/') ? '/index': 'noRedirect';
     menu.component = d.component ? d.component : 'error/index';

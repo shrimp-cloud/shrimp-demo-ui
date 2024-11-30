@@ -59,6 +59,7 @@ const localCache = {
     if (value != null) {
       return JSON.parse(value)
     }
+    return null
   },
   remove (key) {
     localStorage.removeItem(key);

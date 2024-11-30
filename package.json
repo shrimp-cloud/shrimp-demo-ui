@@ -29,17 +29,16 @@
     "monaco-editor": "^0.41.0",
     "nprogress": "0.2.0",
     "pinia": "2.1.7",
-    "vue": "3.3.9",
+    "vue": "3.4.31",
     "vue-cropper": "1.1.1",
-    "vue-router": "4.2.5",
+    "vue-router": "4.4.0",
     "vue3-clipboard": "^1.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "4.5.0",
-    "@vue/compiler-sfc": "3.3.9",
-    "sass": "1.69.5",
-    "unplugin-auto-import": "0.17.1",
-    "unplugin-vue-setup-extend-plus": "1.0.0",
+    "@vitejs/plugin-vue": "5.0.5",
+    "sass": "1.77.5",
+    "unplugin-auto-import": "0.17.6",
+    "unplugin-vue-setup-extend-plus": "1.0.1",
     "vite": "5.4.11",
     "vite-plugin-compression": "0.5.1",
     "vite-plugin-svg-icons": "2.0.1"

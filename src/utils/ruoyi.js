@@ -157,7 +157,7 @@ export function mergeRecursive(source, target) {
  * @param {*} parentId 父节点字段 默认 'parentId'
  * @param {*} children 孩子节点字段 默认 'children'
  */
-export function handleTree(data, id, parentId, children, disableChrilred) {
+export function handleTree(data, id, parentId, children, disableChildren) {
   let config = {
     id: id || 'id',
     parentId: parentId || 'parentId',
@@ -189,7 +189,7 @@ export function handleTree(data, id, parentId, children, disableChrilred) {
   }
 
   // 递归子节点，禁用指定节点及其子节点
-  if (disableChrilred) {
+  if (disableChildren) {
     disableChrilrenNodes(tree, false);
   }
 

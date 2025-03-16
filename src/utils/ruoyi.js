@@ -210,7 +210,7 @@ export function handleTree(data, id, parentId, children, disableChildren) {
     }
     for (let t of tree) {
       // 只能影响自己，和子级，不能影响当前级其他地元素
-      const currentDisabled = disabled || t[config.id] === disableChrilred;
+      const currentDisabled = disabled || t[config.id] === disableChildren;
       t.disabled = currentDisabled;
       disableChrilrenNodes(t[config.childrenList], currentDisabled)
     }

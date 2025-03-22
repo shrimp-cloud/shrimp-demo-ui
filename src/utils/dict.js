@@ -49,7 +49,7 @@ export function useDict(...args) {
           elTagType: p.elType,
           elTagClass: p.cssClass,
           description: p.description,
-          disabled: 1 - (p.enableFlag === undefined ? 1 : 0)
+          disabled: 1 - (p.enableFlag === undefined ? 1 : p.enableFlag)
         }))
         // 缓存
         const stroage = {

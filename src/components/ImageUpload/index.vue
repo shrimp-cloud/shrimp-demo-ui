@@ -154,9 +154,9 @@ function handleUpload(form) {
       proxy.$modal.msgError('上传异常：' + res.msg);
       return;
     }
-    const url = res.data.url;
-    const fileName = url.substring(url.lastIndexOf("/")+1);
-    fileList.value.push({ name: fileName, url: url });
+    const name = res.data.fileId;
+    const url = res.data.previewUrl;
+    fileList.value.push({ name, url});
     emit("update:modelValue", listToString(fileList.value));
   }).finally(() => {
     proxy.$modal.closeLoading();
@@ -167,7 +167,7 @@ function handleUpload(form) {
 // 上传成功回调
 function handleUploadSuccess(res, file) {
   if (res.code === 200) {
-    uploadList.value.push({ name: res.fileName, url: res.fileName });
+    uploadList.value.push({ name: res.data.fileId, url: res.data.previewUrl});
     uploadedSuccessfully();
   } else {
     number.value--;

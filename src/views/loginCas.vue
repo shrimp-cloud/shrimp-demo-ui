@@ -156,7 +156,7 @@ console.log('心灵的付出没得到回音便会是孤单，记忆滞后太久�
   justify-content: right;
   align-items: center;
   height: 100%;
-  background-image: url("https://static.wkclz.com/images/pl.jpeg");
+  background-image: url("https://com-wkclz-static.oss-cn-shenzhen.aliyuncs.com/images/pl.jpeg");
   background-size: cover;
   padding-right: 108px;
 }

@@ -7,6 +7,7 @@ xcopy "..\shrimp-demo-ui\public"  .\public /S/Y
 xcopy "..\shrimp-demo-ui\vite"  .\vite /S/Y
 xcopy "..\shrimp-demo-ui\package.json"  .\ /Y
 xcopy "..\shrimp-demo-ui\vite.config.js"  .\ /S/Y
+xcopy "..\shrimp-demo-ui\.nvmrc"  .\ /S/Y
 
 :: src/api cas,common
 xcopy "..\shrimp-demo-ui\src\api\cas.js"  .\src\api /S/Y

@@ -6,6 +6,7 @@ cp -rf ../shrimp-demo-ui/public  ./
 cp -rf ../shrimp-demo-ui/vite  ./
 cp -rf ../shrimp-demo-ui/package.json  ./
 cp -rf ../shrimp-demo-ui/vite.config.js  ./
+cp -rf ../shrimp-demo-ui/.nvmrc  ./
 
 # src/api cas,common
 cp -rf ../shrimp-demo-ui/src/api/cas.js  ./src/api/

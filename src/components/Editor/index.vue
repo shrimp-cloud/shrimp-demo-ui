@@ -171,7 +171,7 @@ function handleUploadSuccess(res, file) {
   // 获取光标位置
   let length = quill.selection.savedRange.index;
   // 插入图片，res.url为服务器返回的图片链接地址
-  quill.insertEmbed(length, "image", res.data.url);
+  quill.insertEmbed(length, "image", res.data.previewUrl);
   // 调整光标到最后
   quill.setSelection(length + 1);
 

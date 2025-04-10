@@ -37,7 +37,7 @@ const usePermissionStore = defineStore('permission', {
       this.sidebarRouters = routes
     },
     generateRoutes() {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
         // 向后端请求路由数据
         userResTree().then(res => {
           const data = res.data;

@@ -23,3 +23,18 @@ yarn dev
 # 构建生产环境 yarn build:prod
 # 前端访问地址 http://localhost:80
 ```
+
+
+## 子模块
+
+```shell
+# 添加子模块
+git submodule add -b <branch-name> <repository-url> <path-to-submodule>
+# 示例
+git submodule add -b main https://github.com/yangzongzhuan/RuoYi-Vue3.git ruoyi
+
+# 更新子模块
+git submodule update --remote
+
+```
+

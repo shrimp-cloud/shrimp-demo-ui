@@ -1,0 +1,36 @@
+[submodule "sub/cas"]
+	path = sub/cas
+	url = git@github.com:shrimp-cloud/shrimp-cas-ui.git
+	branch = main
+[submodule "sub/auth"]
+	path = sub/auth
+	url = git@github.com:shrimp-cloud/shrimp-auth-ui.git
+	branch = main
+[submodule "sub/mdm"]
+	path = sub/mdm
+	url = git@github.com:shrimp-cloud/shrimp-mdm-ui.git
+	branch = main
+[submodule "sub/gen"]
+	path = sub/gen
+	url = git@github.com:shrimp-cloud/shrimp-gen-ui.git
+	branch = main
+[submodule "sub/tool"]
+	path = sub/tool
+	url = git@github.com:shrimp-cloud/shrimp-tool-ui.git
+	branch = main
+[submodule "sub/cms"]
+	path = sub/cms
+	url = git@github.com:shrimp-cloud/shrimp-cms-ui.git
+	branch = main
+[submodule "sub/pms"]
+	path = sub/pms
+	url = git@github.com:shrimp-cloud/shrimp-pms-ui.git
+	branch = main
+[submodule "sub/k8s"]
+	path = sub/k8s
+	url = git@github.com:shrimp-cloud/shrimp-k8s-ui.git
+	branch = main
+[submodule "sub/flow"]
+	path = sub/flow
+	url = git@github.com:shrimp-cloud/shrimp-flow-ui.git
+	branch = main

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="tenants && tenants.length.length > 1">
     <el-dropdown trigger="click" @command="handleSelectTenant" style="margin-top: 10px;">
       <span class="el-dropdown-link" style="padding-right: 12px;">
         {{current.displayName}}

@@ -53,6 +53,7 @@ metadata:
   # namespace: prod
   name: shrimp-demo-ui-ingress
   annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/server-alias: "auth.uat.wkclz.com,mdm.uat.wkclz.com,gen.uat.wkclz.com,tool.uat.wkclz.com,cms.uat.wkclz.com,pms.uat.wkclz.com,k8s.uat.wkclz.com,flow.uat.wkclz.com"
 spec:
   ingressClassName: nginx

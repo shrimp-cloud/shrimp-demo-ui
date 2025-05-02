@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="allApps && allApps.length > 1">
     <el-dropdown trigger="click" @command="handleSelectApp" style="margin-top: 10px;">
       <span class="el-dropdown-link" style="padding-right: 12px;">
         {{current.displayName}}
@@ -27,6 +27,7 @@ import {appCode} from '~/env';
 
 const { proxy } = getCurrentInstance();
 const userStore = useUserStore()
+const allApps = ref([]);
 const current = ref({});
 const filtedApps = ref([]);
 const form = ref({})
@@ -57,6 +58,7 @@ function getCurrent() {
 // 通过用户的查询条件，展示被搜索的 app
 function queryApps() {
   const apps = userStore.apps;
+  allApps.value = apps;
   const keyword = form.value.keyword;
   const tmps = [];
   for (const app of apps) {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="tenants && tenants.length.length > 1">
+  <div v-if="allTenants && allTenants.length > 1">
     <el-dropdown trigger="click" @command="handleSelectTenant" style="margin-top: 10px;">
       <span class="el-dropdown-link" style="padding-right: 12px;">
         {{current.displayName}}
@@ -26,6 +26,7 @@ import useUserStore from '@/store/modules/user';
 
 const { proxy } = getCurrentInstance();
 const userStore = useUserStore()
+const allTenants = ref([]);
 const current = ref({});
 const filtedTenants = ref([]);
 const form = ref({})
@@ -60,6 +61,7 @@ function getCurrent() {
 
 function queryTenants() {
   const tenants = userStore.tenants;
+  allTenants.value = tenants;
   const keyword = form.value.keyword;
   const tmps = [];
   for (const tenant of tenants) {

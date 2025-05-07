@@ -12,8 +12,8 @@ export function publicSsoLogout() {
 export function ssoBizLogin(data) {
     return request({url: '/cas/sso/biz/login', method: 'post', data})
 }
-export function publicSsoLoginUsername() {
-    return request({url: '/cas/public/sso/login/username', method: 'get'})
+export function publicSsoLoginUserCode() {
+    return request({url: '/cas/public/sso/login/userCode', method: 'get'})
 }
 export function userResTree() {
     return request({url: '/cas/user/res/tree', method: 'get'})

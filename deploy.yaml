@@ -53,6 +53,7 @@ metadata:
   # namespace: prod
   name: shrimp-demo-ui-ingress
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/server-alias: "auth.uat.wkclz.com,mdm.uat.wkclz.com,gen.uat.wkclz.com,tool.uat.wkclz.com,cms.uat.wkclz.com,pms.uat.wkclz.com,k8s.uat.wkclz.com,flow.uat.wkclz.com"
 spec:
@@ -68,4 +69,31 @@ spec:
                 name: shrimp-demo-ui-svc
                 port:
                   number: 80
-
+  tls:
+    - hosts:
+        - cas.uat.wkclz.com
+      secretName: cas.uat.wkclz.com
+    - hosts:
+        - auth.uat.wkclz.com
+      secretName: auth.uat.wkclz.com
+    - hosts:
+        - mdm.uat.wkclz.com
+      secretName: mdm.uat.wkclz.com
+    - hosts:
+        - gen.uat.wkclz.com
+      secretName: gen.uat.wkclz.com
+    - hosts:
+        - tool.uat.wkclz.com
+      secretName: tool.uat.wkclz.com
+    - hosts:
+        - cms.uat.wkclz.com
+      secretName: cms.uat.wkclz.com
+    - hosts:
+        - pms.uat.wkclz.com
+      secretName: pms.uat.wkclz.com
+    - hosts:
+        - k8s.uat.wkclz.com
+      secretName: k8s.uat.wkclz.com
+    - hosts:
+        - flow.uat.wkclz.com
+      secretName: flow.uat.wkclz.com

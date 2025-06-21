@@ -46,16 +46,17 @@ spec:
       name: http-80
   selector:
     app: shrimp-demo-ui
+
+
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   # namespace: prod
-  name: shrimp-demo-ui-ingress
+  name: shrimp-cas-ui-ingress
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/server-alias: "auth.uat.wkclz.com,mdm.uat.wkclz.com,gen.uat.wkclz.com,tool.uat.wkclz.com,cms.uat.wkclz.com,pms.uat.wkclz.com,k8s.uat.wkclz.com,flow.uat.wkclz.com"
 spec:
   ingressClassName: nginx
   rules:
@@ -73,27 +74,219 @@ spec:
     - hosts:
         - cas.uat.wkclz.com
       secretName: cas.uat.wkclz.com
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # namespace: prod
+  name: shrimp-auth-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: auth.uat.wkclz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shrimp-demo-ui-svc
+                port:
+                  number: 80
+  tls:
     - hosts:
         - auth.uat.wkclz.com
       secretName: auth.uat.wkclz.com
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # namespace: prod
+  name: shrimp-mdm-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: mdm.uat.wkclz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shrimp-demo-ui-svc
+                port:
+                  number: 80
+  tls:
     - hosts:
         - mdm.uat.wkclz.com
       secretName: mdm.uat.wkclz.com
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # namespace: prod
+  name: shrimp-gen-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: gen.uat.wkclz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shrimp-demo-ui-svc
+                port:
+                  number: 80
+  tls:
     - hosts:
         - gen.uat.wkclz.com
       secretName: gen.uat.wkclz.com
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # namespace: prod
+  name: shrimp-tool-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: tool.uat.wkclz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shrimp-demo-ui-svc
+                port:
+                  number: 80
+  tls:
     - hosts:
         - tool.uat.wkclz.com
       secretName: tool.uat.wkclz.com
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # namespace: prod
+  name: shrimp-cms-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: cms.uat.wkclz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shrimp-demo-ui-svc
+                port:
+                  number: 80
+  tls:
     - hosts:
         - cms.uat.wkclz.com
       secretName: cms.uat.wkclz.com
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # namespace: prod
+  name: shrimp-pms-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: pms.uat.wkclz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shrimp-demo-ui-svc
+                port:
+                  number: 80
+  tls:
     - hosts:
         - pms.uat.wkclz.com
       secretName: pms.uat.wkclz.com
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # namespace: prod
+  name: shrimp-k8s-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: k8s.uat.wkclz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shrimp-demo-ui-svc
+                port:
+                  number: 80
+  tls:
     - hosts:
         - k8s.uat.wkclz.com
       secretName: k8s.uat.wkclz.com
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # namespace: prod
+  name: shrimp-flow-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: flow.uat.wkclz.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shrimp-demo-ui-svc
+                port:
+                  number: 80
+  tls:
     - hosts:
         - flow.uat.wkclz.com
       secretName: flow.uat.wkclz.com

@@ -53,6 +53,7 @@
 import {decrypt, encrypt} from "@/utils/jsencrypt";
 import useUserStore from '@/store/modules/user'
 import {publicCaptchaPicture} from "@/api/cas";
+import {mottoRand} from "@/api/common";
 
 const userStore = useUserStore()
 const router = useRouter();
@@ -80,6 +81,15 @@ const loginMsg = ref('请登录!');
 const register = ref(false);
 const redirect = ref(undefined);
 const pwdView = ref(false);
+
+function init() {
+  mottoRand().then((res) => {
+  const motto = res.data?.mainContent;
+    if (motto) {
+      console.log(motto);
+    }
+  })
+}
 
 function pwdViewSwitch() {
   pwdView.value = !pwdView.value;
@@ -147,7 +157,8 @@ function getCache() {
 }
 
 // getCache();
-console.log('心灵的付出没得到回音便会是孤单，记忆滞后太久，会退色，也会更鲜明');
+// console.log('心灵的付出没得到回音便会是孤单，记忆滞后太久，会退色，也会更鲜明');
+init ();
 </script>
 
 <style lang='scss' scoped>

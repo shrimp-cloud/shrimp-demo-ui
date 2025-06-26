@@ -28,3 +28,7 @@ export function imageCategoryOptionsWithimgcount(params) {
 export function commonImagePage(params) {
     return request({url: '/cms/common/image/page', method: 'get', params});
 }
+// 名言
+export function mottoRand(params) {
+    return request({url: '/cms/public/motto/rand', method: 'get', params});
+}

@@ -23,7 +23,7 @@
     "axios": "1.9.0",
     "bpmn-js": "^18.6.2",
     "echarts": "5.4.3",
-    "element-plus": "2.6.2",
+    "element-plus": "2.10.2",
     "file-saver": "2.0.5",
     "fuse.js": "6.6.2",
     "jsencrypt": "3.3.2",

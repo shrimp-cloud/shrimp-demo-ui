@@ -32,6 +32,15 @@ export function userAppTenantList() {
     return request({url: '/cas/user/app/tenant/list', method: 'get'})
 }
 
+export function personalBaseInfo() {
+  return request({url: '/cas/personal/base/info', method: 'get'})
+}
+
+export function userOptions(params) {
+  return request({url: '/auth/user/options', method: 'get', params})
+}
+
+
 export function register() {
     return;
 }

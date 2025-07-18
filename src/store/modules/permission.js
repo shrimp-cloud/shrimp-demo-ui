@@ -222,6 +222,7 @@ export const loadView = (view) => {
     const dir = path.split('views/')[1].split('.vue')[0];
     if (dir === view) {
       res = () => modules[path]();
+      break;
     }
   }
   return res;

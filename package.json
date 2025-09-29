@@ -20,7 +20,7 @@
     "@rollup/plugin-inject": "^5.0.3",
     "@vueup/vue-quill": "1.2.0",
     "@vueuse/core": "10.6.1",
-    "axios": "1.9.0",
+    "axios": "1.12.2",
     "bpmn-js": "^18.6.2",
     "echarts": "5.4.3",
     "element-plus": "2.10.2",

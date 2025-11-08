@@ -43,6 +43,8 @@ import TreeSelect from '@/components/TreeSelect'
 import DictTag from '@/components/DictTag'
 // 表单提示
 import FormTips from '@/components/FormTips'
+// 表格设置
+import TableSetting from '@/components/TableSetting'
 
 // 全局默认属性设置
 import { ElTable, ElDialog, ElDrawer } from 'element-plus';
@@ -79,6 +81,7 @@ app.component('ImagePreview', ImagePreview)
 app.component('RightToolbar', RightToolbar)
 app.component('Editor', Editor)
 app.component('FormTips', FormTips)
+app.component('TableSetting', TableSetting)
 
 app.use(router)
 app.use(store)
